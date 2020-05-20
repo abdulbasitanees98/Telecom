@@ -24,8 +24,8 @@ for j = 1:length(snr)
             M  = Ms(i);
             k = log2(Ms(i));
             bitsP = reshape(bits, length(bits) / k, k); % which makes the sampling frequency of numbers as B
-            X = bin2Dec(bitsP);
-%             X = bi2de(bitsP);
+%             X = bin2Dec(bitsP);
+              X = bi2de(bitsP);
             X = reshape(X, nSymbols *6/k, N);
             Xmod = qammod(X, M, 'bin');
             tx = ifft(Xmod, N, 2);
@@ -33,8 +33,8 @@ for j = 1:length(snr)
 %             rx = awgn(tx, snr(j), 'measured');
             Y = fft(rx, N, 2);
             Yf = qamdemod(Y, M, 'bin');
-%             Yf2 = de2bi(Yf(:),k);
-            Yf2 = dec2Bin(Yf(:),k);
+            Yf2 = de2bi(Yf(:),k);
+%           Yf2 = dec2Bin(Yf(:),k);
             errors(i,m) = sum(bits(:) ~= Yf2(:)) / totalBits;
         end
     end
